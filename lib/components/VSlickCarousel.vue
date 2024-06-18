@@ -865,9 +865,9 @@ watch(
 )
 
 watch(
-  () => slots.default,
+  () => slots.default?.() || [],
   (newSlots) => {
-    slides.value = newSlots ? extractSlides(newSlots()) : []
+    slides.value = extractSlides(newSlots)
   }
 )
 
@@ -1001,6 +1001,7 @@ emit('init')
   display: block;
   box-sizing: border-box;
 }
+
 .v-slick-list {
   position: relative;
   display: block;
@@ -1008,9 +1009,11 @@ emit('init')
   margin: 0;
   padding: 0;
   transform: translate3d(0, 0, 0);
+
   &:focus {
     outline: none;
   }
+
   &.dragging {
     cursor: pointer;
     cursor: hand;
